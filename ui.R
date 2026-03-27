@@ -87,9 +87,9 @@ ui <- page_fluid(
       filter: brightness(0) invert(1) !important;
     }
 
-    /* ── Alternating row colors ── */
-    table.dataTable tbody tr:nth-child(odd) td  { background-color: white   !important; }
-    table.dataTable tbody tr:nth-child(even) td { background-color: #f6f6f6 !important; }
+    /* ── Alternating row colors (DT uses .odd/.even classes, not nth-child) ── */
+    #course_table tbody tr.odd  td { background-color: white   !important; }
+    #course_table tbody tr.even td { background-color: #f6f6f6 !important; }
 
     /* ── Table data cells: left-aligned ── */
     table.dataTable tbody td {
@@ -100,25 +100,25 @@ ui <- page_fluid(
     }
 
     /* ── Row hover (overrides alternating) ── */
-    table.dataTable tbody tr:hover td {
+    #course_table tbody tr:hover td {
       background-color: #EBEBEB !important;
       cursor: pointer;
     }
 
-    /* ── Open (expanded) row: maroon bold text, grey bg (overrides alternating) ── */
-    table.dataTable tbody tr.row-open td {
-      background-color: #EBEBEB !important;
+    /* ── Open (expanded) row: maroon bg, white bold text ── */
+    #course_table tbody tr.row-open td {
+      background-color: #500000 !important;
       font-weight: 700 !important;
-      color: #500000 !important;
+      color: white !important;
     }
 
     /* ── Child (detail) row background ── */
-    table.dataTable tbody tr.child td,
-    table.dataTable tbody tr.child {
+    #course_table tbody tr.child td,
+    #course_table tbody tr.child {
       background-color: #fcf8f7 !important;
     }
 
-    /* ── Expand toggle arrow: aggie maroon ── */
+    /* ── Expand toggle arrow: aggie maroon normally, white when row open ── */
     .toggle-col {
       color: #500000;
       font-size: 0.8em;
@@ -126,7 +126,10 @@ ui <- page_fluid(
       display: inline-block;
       user-select: none;
     }
-    .row-open .toggle-col { transform: rotate(90deg); }
+    .row-open .toggle-col {
+      transform: rotate(90deg);
+      color: white !important;
+    }
 
     .dataTables_paginate { padding: 8px 12px 0 12px !important; }
     .dataTables_info { display: none !important; }

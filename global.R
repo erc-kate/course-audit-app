@@ -179,9 +179,9 @@ build_themes_tab <- function(themes_df, subthemes_df) {
         tags$hr(style = "margin: 12px 0 0 0; border-color: #ddd;")
       ),
 
-      # ── Subthemes: plain list below the callout box ──
+      # ── Subthemes: indented to align with callout box content (4px border + 22px padding) ──
       tags$div(
-        style = "padding: 14px 0 0 0;",
+        style = "padding: 14px 0 0 26px;",
         tagList(subtheme_entries)
       )
     )
