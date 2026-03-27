@@ -85,8 +85,8 @@ make_detail_html <- function(row) {
   # browser renders when a row is expanded.
   paste0('
     <div style="
-      border-left: 4px solid #0054a4;
-      background: #f8f9fa;
+      border-left: 4px solid #500000;
+      background: white;
       padding: 18px 24px;
       margin: 4px 24px 8px 48px;
       border-radius: 0 4px 4px 0;
@@ -178,8 +178,8 @@ build_themes_tab <- function(themes_df, subthemes_df) {
       style = "margin-bottom: 20px;",
       tags$div(
         style = paste(
-          "background: #f8f9fa;",
-          "border-left: 4px solid #0054a4;",
+          "background: white;",
+          "border-left: 4px solid #500000;",
           "border-radius: 0 4px 4px 0;",
           "padding: 18px 22px 20px 22px;"
         ),
