@@ -138,79 +138,50 @@ build_themes_tab <- function(themes_df, subthemes_df) {
     this_subthemes <- subthemes_df |>    # filter subthemes that
       filter(theme == this_theme$theme)  # belong to this theme
     
-    # For each subtheme: bold name + plain definition, indented
-    # No grey box, no border — just clean text inside theme's box
+    # For each subtheme: bold name + plain definition
+    # Rendered BELOW the callout box — no box, no border, clean plain text
     subtheme_entries <- lapply(1:nrow(this_subthemes), function(j) {
       sub <- this_subthemes[j, ]
       tags$div(
-        style = paste(
-          "padding-left: 16px;",
-          "margin-top: 14px;",
-          "background: transparent;",
-          "border: none;",
-          "border-left: none;"
-        ),
+        style = "margin-bottom: 14px;",
         tags$div(
-          style = paste(
-            "font-weight: 700;",
-            "font-size: 0.92em;",
-            "color: #222;",
-            "margin-bottom: 3px;",
-            "background: transparent;"
-          ),
+          style = "font-weight: 700; font-size: 0.92em; color: #222; margin-bottom: 3px;",
           sub$subtheme
         ),
         tags$div(
-          style = paste(
-            "font-size: 0.87em;",
-            "color: #555;",
-            "line-height: 1.55;",
-            "background: transparent;"
-          ),
+          style = "font-size: 0.87em; color: #555; line-height: 1.55;",
           sub$subtheme_definition
         )
       )
     })
-    
-    # One grey callout box per theme
-    # ONLY this outer div gets the grey + blue bar
+
+    # Callout box contains ONLY the theme name + definition + divider.
+    # The divider closes the box visually. Subthemes live below it.
     tags$div(
-      style = "margin-bottom: 20px;",
+      style = "margin-bottom: 32px;",
+
+      # ── Callout box: maroon left border, ends at the HR ──
       tags$div(
         style = paste(
           "background: white;",
           "border-left: 4px solid #500000;",
           "border-radius: 0 4px 4px 0;",
-          "padding: 18px 22px 20px 22px;"
+          "padding: 18px 22px 14px 22px;"
         ),
-        
-        # Theme name — bold
         tags$div(
-          style = paste(
-            "font-weight: 700;",
-            "font-size: 1.05em;",
-            "color: #111;",
-            "margin-bottom: 4px;",
-            "background: transparent;"
-          ),
+          style = "font-weight: 700; font-size: 1.05em; color: #111; margin-bottom: 4px;",
           this_theme$theme
         ),
-        
-        # Theme definition — normal weight
         tags$div(
-          style = paste(
-            "font-size: 0.9em;",
-            "color: #555;",
-            "line-height: 1.5;",
-            "background: transparent;"
-          ),
+          style = "font-size: 0.9em; color: #555; line-height: 1.5;",
           this_theme$theme_definition
         ),
-        
-        # Divider between theme and its subthemes
-        tags$hr(style = "margin: 12px 0 4px 0; border-color: #ddd;"),
-        
-        # All subthemes for this theme
+        tags$hr(style = "margin: 12px 0 0 0; border-color: #ddd;")
+      ),
+
+      # ── Subthemes: plain list below the callout box ──
+      tags$div(
+        style = "padding: 14px 0 0 0;",
         tagList(subtheme_entries)
       )
     )

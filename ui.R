@@ -20,7 +20,7 @@ ui <- page_fluid(
     .pill-tab {
       padding: 6px 18px;
       border-radius: 999px;
-      border: 1.5px solid #ddd;
+      border: 1.5px solid #d1d1d1;
       background: white;
       color: #500000;
       font-size: 0.88em;
@@ -29,21 +29,19 @@ ui <- page_fluid(
       transition: background 0.15s;
     }
     .pill-tab:hover { background: #f0f0f0; color: #500000; }
-    .pill-tab.active { background: #fafafa; color: #500000; border-color: #ccc; }
+    .pill-tab.active { background: #f6f6f6; color: #500000; border-color: #d1d1d1; }
 
     /* ── Tab panels ── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── Page description banner ── */
+    /* ── Page description — plain white, normal text ── */
     .page-description {
-      background: #fafafa;
-      color: #500000;
-      font-weight: 700;
+      background: white;
+      color: #444;
+      font-weight: 400;
       font-size: 0.95em;
       line-height: 1.6;
-      padding: 12px 16px;
-      border-radius: 4px;
       margin-bottom: 16px;
       text-align: left;
     }
@@ -62,18 +60,36 @@ ui <- page_fluid(
       margin: 0 !important;
     }
 
-    /* ── Table column headers: white bg, aggie maroon text, left-aligned ── */
+    /* ── Table column headers: #f5f1f0 bg, black bold, left-aligned ── */
     table.dataTable thead th {
-      font-weight: 600;
-      font-size: 0.85em;
+      font-weight: 700;
+      font-size: 0.9em;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: #500000;
+      color: #111;
       border-bottom: 2px solid #e0e0e0 !important;
       padding: 12px 10px !important;
-      background-color: white !important;
+      background-color: #f5f1f0 !important;
       text-align: left !important;
     }
+
+    /* ── Sorted column header: maroon bg, white bold text, white arrow ── */
+    table.dataTable thead th.sorting_asc,
+    table.dataTable thead th.sorting_desc {
+      background-color: #500000 !important;
+      color: white !important;
+      font-weight: 700 !important;
+    }
+    table.dataTable thead th.sorting_asc::after,
+    table.dataTable thead th.sorting_asc::before,
+    table.dataTable thead th.sorting_desc::after,
+    table.dataTable thead th.sorting_desc::before {
+      filter: brightness(0) invert(1) !important;
+    }
+
+    /* ── Alternating row colors ── */
+    table.dataTable tbody tr:nth-child(odd) td  { background-color: white   !important; }
+    table.dataTable tbody tr:nth-child(even) td { background-color: #f6f6f6 !important; }
 
     /* ── Table data cells: left-aligned ── */
     table.dataTable tbody td {
@@ -83,13 +99,13 @@ ui <- page_fluid(
       text-align: left !important;
     }
 
-    /* ── Row hover ── */
+    /* ── Row hover (overrides alternating) ── */
     table.dataTable tbody tr:hover td {
       background-color: #EBEBEB !important;
       cursor: pointer;
     }
 
-    /* ── Open (expanded) row: maroon bold text, grey background ── */
+    /* ── Open (expanded) row: maroon bold text, grey bg (overrides alternating) ── */
     table.dataTable tbody tr.row-open td {
       background-color: #EBEBEB !important;
       font-weight: 700 !important;
@@ -102,7 +118,7 @@ ui <- page_fluid(
       background-color: #fcf8f7 !important;
     }
 
-    /* ── Toggle arrow: aggie maroon ── */
+    /* ── Expand toggle arrow: aggie maroon ── */
     .toggle-col {
       color: #500000;
       font-size: 0.8em;
@@ -211,8 +227,9 @@ ui <- page_fluid(
   ),
 
   # ── TAB 2: Themes & Definitions ───────────────────────
+  # max-width + margin auto = centered block, text still left-aligned inside
   div(id = "panel-themes", class = "tab-panel",
-      div(style = "max-width: 860px; padding: 0 8px;",
+      div(style = "max-width: 860px; padding: 0 8px; margin: 0 auto;",
           p(class = "page-description",
             style = "margin-bottom: 28px;",
             "Each course in the audit is aligned to a theme and subtheme
